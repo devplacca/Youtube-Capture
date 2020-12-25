@@ -1,8 +1,8 @@
 {
   "name": "Youtube Capture",
-  "description" : "Capture frames of youtube videos (like a screenshot)",
+  "description" : "Capture frame(s) of Youtube videos and save them as png screenshots/thumbnails.",
   "version": "1.0.0",
-  "manifest_version": 1,
+  "manifest_version": 2,
   "page_action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -31,7 +31,7 @@
     ],
      "run_at": "document_idle",
      "js": [
-        "assets/content/js/content-main.js",
+        "assets/content/js/content-main.js"
       ],
      "css": [
         "assets/content/css/content-style.css"
