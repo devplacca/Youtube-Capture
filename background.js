@@ -4,7 +4,7 @@ chrome.runtime.onInstalled.addListener(function() {
     // With a new rule ...
     chrome.declarativeContent.onPageChanged.addRules([
       {
-        // That fires when a page's URL contains a 'youtube' ...
+        // That fires when a page's URL contains the 'youtube' keyword/domain
         conditions: [
           new chrome.declarativeContent.PageStateMatcher({
             pageUrl: { urlContains: 'youtube' },
