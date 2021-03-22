@@ -1,8 +1,32 @@
 :root {
+	--hpad: 1rem;
+	--vpad: .5rem;
+	--padding: var(--vpad) var(--hpad);
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+body {
+	width: auto;
+}
+
+.header {
+	color: white;
+	background-color: red;
+	padding: var(--padding);
+	font-variant: small-caps;
+	text-align: center;
+}
+
+.intro {
+	padding: var(--padding);
+	white-space: nowrap;
+}
+
+.features li {
+	list-style-type: none;
 }
