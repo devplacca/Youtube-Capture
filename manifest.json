@@ -2,7 +2,7 @@
   "name": "Youtube Capture",
   "short_name": "YtCapture",
   "description" : "Take snapshots or download thumbnails of Youtube videos",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "manifest_version": 2,
   "page_action": {
     "default_popup": "popup.html",
