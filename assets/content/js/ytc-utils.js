@@ -4,3 +4,10 @@ function createElementFromString (string) {
 	return parsedHtml.body.firstElementChild;
 }
 
+function downloadMedia(url, filename) {
+	const anchor = document.createElement('a');
+	anchor.download = filename;
+	anchor.href = url;
+	anchor.click();
+	delete anchor;
+}
