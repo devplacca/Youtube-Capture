@@ -1,7 +1,30 @@
 let shadow;
-let downloadBtn
+let downloadBtn;
+let isListening = false;
 
 window.addEventListener('load', () => {
+	const observer = new MutationObserver(mutations => {
+		if (!isListening) {
+			for (let {target} of mutations) {
+				if (window['contents']) {
+					triggerContentsListener()
+					break
+				}
+			}
+		}
+	});
+
+	observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  })
+
+	if (!isListening) {
+		triggerContentsListener()
+	}
+});
+
+function triggerContentsListener () {
 	window['contents'].addEventListener('mousemove', ({target}) => {
 		if (target.classList.contains('yt-img-shadow')) {
 
@@ -20,23 +43,20 @@ window.addEventListener('load', () => {
 			}
 		}
 	})
-});
+	isListening = true;
+}
 
 function insertThumbnailDownloadBtn (parent) {
 	const btn = createElementFromString(`
-		<span
-			class='yt-thumb-download'
+		<ytc-thumb-download
 			aria-label='Download thumbnail'
 			title='Download thumbnail'
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
-				x="0px"
-				y="0px"
 				width="24"
 				height="24"
 				viewBox="0 0 172 172"
-				style="fill:#000000;"
 			>
 				<g
 					fill-rule="nonzero"
@@ -48,10 +68,10 @@ function insertThumbnailDownloadBtn (parent) {
 					</g>
 				</g>
 			</svg>
-		</span>
+		</ytc-thumb-download>
 	`)
 	btn.addEventListener('click', downloadThumbnail)
-	parent.appendChild(btn)
+	parent.insertBefore(btn, parent.firstElementChild)
 	downloadBtn = btn;
 }
 
@@ -72,13 +92,11 @@ async function getThumbnailData (src) {
 	}
 }
 
-async function downloadThumbnail () {
-	const { file, extension, ...rest } = await getThumbnailData(shadow.src);
-	const filename = `${file.match(/(?<=\/)[\w-]+$/gi)}.${extension}`
-
-	const anchor = document.createElement('a');
-	anchor.download = filename;
-	anchor.href = file;
-	anchor.click();
-	delete anchor;
+function downloadThumbnail () {
+	getThumbnailData(shadow.src)
+		.then(({ file, extension }) => {
+			const filename = `${file.match(/(?<=\/)[\w-]+$/gi)}.${extension}`
+			downloadMedia(file, filename)
+		})
+		.catch(err => console.error(err))
 }
