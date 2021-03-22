@@ -2,7 +2,7 @@ let shadow;
 let downloadBtn
 
 window.addEventListener('load', () => {
-	window['contents'].addEventListener('mousemove', async ({target}) => {
+	window['contents'].addEventListener('mousemove', ({target}) => {
 		if (target.classList.contains('yt-img-shadow')) {
 
 			if (downloadBtn && shadow !== target) {
