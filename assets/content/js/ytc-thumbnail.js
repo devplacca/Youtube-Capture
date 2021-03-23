@@ -30,7 +30,11 @@ function triggerContentsListener () {
 	// smoke out our target element
 	if (HTMLCollection.prototype.isPrototypeOf(contents)) {
 		for (let node of contents) {
-			const matches = ['ytd-item-section-renderer', 'ytd-section-list-renderer'];
+			const matches = [
+				'ytd-item-section-renderer',
+				'ytd-section-list-renderer',
+				'ytd-rich-grid-renderer'
+			];
 			if (matches.some(match => node.classList.contains(match))) {
 				element = node
 				break
