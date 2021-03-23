@@ -1,7 +1,9 @@
 :root {
-	--hpad: 1rem;
-	--vpad: .5rem;
+	--hpad: 1.2rem;
+	--vpad: 1rem;
 	--padding: var(--vpad) var(--hpad);
+	--yt-red: #FF0000;
+	font-family: 'Roboto', sans-serif;
 }
 
 * {
@@ -12,21 +14,39 @@
 
 body {
 	width: auto;
-}
-
-.header {
-	color: white;
-	background-color: red;
-	padding: var(--padding);
-	font-variant: small-caps;
+	min-width: 250px;
 	text-align: center;
 }
 
-.intro {
+header h3 {
 	padding: var(--padding);
-	white-space: nowrap;
+	color: white;
+	background-color: var(--yt-red);
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
-.features li {
-	list-style-type: none;
+header img {
+	width: 20px;
+	object-fit: scale-down;
+	margin-right: 10px;
 }
+
+a {
+	font-size: .85rem;
+	text-decoration: none;
+	color: #000;
+	display: block;
+	margin-top: var(--vpad);
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.foot-text {
+	margin: var(--vpad) 0;
+	color: #c4c4c4;
+}
+
