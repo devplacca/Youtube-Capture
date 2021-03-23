@@ -4,7 +4,6 @@
 let player;
 let canvas;
 let prevLocation;
-// let btnIsInserted;
 
 window.addEventListener('load', () => {
 	const observer = new MutationObserver(mutations => {
@@ -15,7 +14,7 @@ window.addEventListener('load', () => {
 				const playerNodes = window["player"];
 				let found = false
 
-				// iterate over playerNodes if it is a collection of nodes instead of a single DOM nodes
+				// iterate over playerNodes if it is a collection of nodes instead of a single DOM node
 				if (playerNodes && HTMLCollection.prototype.isPrototypeOf(playerNodes)) {
 					for (let el of playerNodes) {
 						if (el.classList.contains('ytd-watch-flexy')) {
@@ -30,8 +29,7 @@ window.addEventListener('load', () => {
 				}
 
 				if (found) {
-					if (!document.querySelector('ytc-button-renderer')) {
-						// #top-level-buttons
+					if (!document.querySelector('ytc-button-renderer') && player) {
 						const sibling = player.parentNode.querySelector('#info');
 						// create and insert a button for taking/capturing video snapshots
 						insertSnapshotButton(sibling.querySelector('#top-level-buttons'));
