@@ -19,31 +19,44 @@ window.addEventListener('load', () => {
     subtree: true
   })
 
-	if (!isListening) {
-		triggerContentsListener()
-	}
+	// if (!isListening) {
+	// 	triggerContentsListener()
+	// }
 });
 
 function triggerContentsListener () {
-	window['contents'].addEventListener('mousemove', ({target}) => {
+	const {contents} = window;
+	let element
+	// smoke out our target element
+	if (HTMLCollection.prototype.isPrototypeOf(contents)) {
+		for (let node of contents) {
+			const matches = ['ytd-item-section-renderer', 'ytd-section-list-renderer'];
+			if (matches.some(match => node.classList.contains(match))) {
+				element = node
+				break
+			}
+		}
+		isListening = true;
+	} else {
+		element = contents;
+	}
+	// bind event
+	element.addEventListener('mousemove', ({target}) => {
 		if (target.classList.contains('yt-img-shadow')) {
-
 			if (downloadBtn && shadow !== target) {
 				removeThumbnailDownloadBtn()
 			}
-
 			if (!shadow || (shadow && shadow !== target)) {
 				const { parentNode } = target.offsetParent.parentNode;
 
 				if (!downloadBtn) {
 					insertThumbnailDownloadBtn(parentNode);
 				}
-				// remember current target element
+				// remember current target node
 				shadow = target;
 			}
 		}
 	})
-	isListening = true;
 }
 
 function insertThumbnailDownloadBtn (parent) {
