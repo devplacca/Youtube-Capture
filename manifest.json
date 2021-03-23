@@ -31,8 +31,8 @@
      "run_at": "document_idle",
      "js": [
         "assets/content/js/ytc-utils.js",
-        "assets/content/js/ytc-thumbnail.js",
-        "assets/content/js/ytc-snapshot.js"
+        "assets/content/js/ytc-snapshot.js",
+        "assets/content/js/ytc-thumbnail.js"
       ],
      "css": [
         "assets/content/css/ytc-style.css"
