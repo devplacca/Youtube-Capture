@@ -15,26 +15,31 @@ window.addEventListener('load', () => {
 				let found = false
 
 				// iterate over playerNodes if it is a collection of nodes instead of a single DOM node
-				if (playerNodes && HTMLCollection.prototype.isPrototypeOf(playerNodes)) {
-					for (let el of playerNodes) {
-						if (el.classList.contains('ytd-watch-flexy')) {
-							player = el;
-							found = true;
-							break
+				if (playerNodes) {
+					if (HTMLCollection.prototype.isPrototypeOf(playerNodes)) {
+						for (let el of playerNodes) {
+							if (el.classList.contains('ytd-watch-flexy')) {
+								player = el;
+								found = true;
+								break
+							}
 						}
+					} else {
+						player = playerNodes;
+						found = true;
 					}
-				} else {
-					player = playerNodes;
-					found = true;
 				}
 
 				if (found) {
 					if (!document.querySelector('ytc-button-renderer') && player) {
-						const sibling = player.parentNode.querySelector('#info');
-						// create and insert a button for taking/capturing video snapshots
-						insertSnapshotButton(sibling.querySelector('#top-level-buttons'));
-						insertSnapshotCanvas();
-						prevLocation = currentLocation;
+						const sibling = player?.parentNode?.querySelector('#info');
+
+						// if (sibling) {
+							// create and insert a button for taking/capturing video snapshots
+							insertSnapshotButton(sibling.querySelector('#top-level-buttons'));
+							insertSnapshotCanvas();
+							prevLocation = currentLocation;
+						// }
 					}
 					break;
 				}
