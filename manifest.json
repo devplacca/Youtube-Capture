@@ -4,7 +4,7 @@
   "description" : "Take snapshots and download thumbnails of Youtube videos",
   "version": "1.0.0",
   "manifest_version": 3,
-  "page_action": {
+  "action": {
     "default_popup": "popup.html",
     "default_icon": {
       "32": "assets/logo/32.png",
@@ -17,7 +17,7 @@
       "48": "assets/logo/48.png",
       "128": "assets/logo/128.png"
   },
-  "background": {
+  "background.service_worker": {
     "scripts": [
       "background.js"
     ],
