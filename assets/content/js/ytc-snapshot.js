@@ -3,14 +3,14 @@
 */
 let player;
 let canvas;
-let prevLocation;
+let snapshotPrevHref;
 
 window.addEventListener('load', () => {
 	const observer = new MutationObserver(mutations => {
-		const currentLocation = window.location.href;
+		const { href } = window.location;
 
-		if (!player || prevLocation !== currentLocation) {
-			for (mutation of mutations) {
+		if (!player || snapshotPrevHref !== href) {
+			// for (mutation of mutations) {
 				const playerNodes = window["player"];
 				let found = false
 
@@ -38,12 +38,12 @@ window.addEventListener('load', () => {
 							// create and insert a button for taking/capturing video snapshots
 							insertSnapshotButton(sibling.querySelector('#top-level-buttons'));
 							insertSnapshotCanvas();
-							prevLocation = currentLocation;
+							snapshotPrevHref = href;
 						// }
 					}
-					break;
+					// break;
 				}
-			}
+			// }
 		}
 	});
 	// listen for changes/updates in the body element
