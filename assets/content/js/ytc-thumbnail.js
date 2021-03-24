@@ -4,13 +4,8 @@ let isListening = false;
 
 window.addEventListener('load', () => {
 	const observer = new MutationObserver(mutations => {
-		if (!isListening) {
-			for (let {target} of mutations) {
-				if (window['contents']) {
-					triggerContentsListener()
-					break
-				}
-			}
+		if (!isListening && window.contents) {
+			triggerContentsListener()
 		}
 	});
 
@@ -18,10 +13,6 @@ window.addEventListener('load', () => {
     childList: true,
     subtree: true
   })
-
-	// if (!isListening) {
-	// 	triggerContentsListener()
-	// }
 });
 
 function triggerContentsListener () {
@@ -45,22 +36,30 @@ function triggerContentsListener () {
 		element = contents;
 	}
 	// bind event
-	element.addEventListener('mousemove', ({target}) => {
-		if (target.classList.contains('yt-img-shadow')) {
-			if (downloadBtn && shadow !== target) {
-				removeThumbnailDownloadBtn()
-			}
-			if (!shadow || (shadow && shadow !== target)) {
-				const { parentNode } = target.offsetParent.parentNode;
-
-				if (!downloadBtn) {
-					insertThumbnailDownloadBtn(parentNode);
-				}
-				// remember current target node
-				shadow = target;
-			}
+	element.addEventListener('mousemove', listenAndInsertThumbnailDownloadBtn)
+	element.addEventListener('mouseenter', listenAndInsertThumbnailDownloadBtn)
+	element.addEventListener('mouseleave', () => {
+		if (downloadBtn) {
+			removeThumbnailDownloadBtn()
 		}
 	})
+}
+
+function listenAndInsertThumbnailDownloadBtn({target}) {
+	if (target.classList.contains('yt-img-shadow')) {
+		if (downloadBtn && shadow !== target) {
+			removeThumbnailDownloadBtn()
+		}
+		if (!shadow || (shadow && shadow !== target)) {
+			const { parentNode } = target.offsetParent.parentNode;
+
+			if (!downloadBtn) {
+				insertThumbnailDownloadBtn(parentNode);
+			}
+			// remember current target node
+			shadow = target;
+		}
+	}
 }
 
 function insertThumbnailDownloadBtn (parent) {
