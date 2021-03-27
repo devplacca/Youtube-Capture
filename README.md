@@ -1,7 +1,7 @@
 # Youtube Capture&nbsp;![](./assets/logo/32.png)
 
 ## Overview
-Youtube Capture is a Chrome extension that enables you to ake snapshots and download thumbnails of Youtube videos.
+Youtube Capture is a Chrome extension that enables you to take snapshots and download thumbnails of Youtube videos.
 
 ## Features
 
