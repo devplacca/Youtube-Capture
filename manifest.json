@@ -2,7 +2,7 @@
   "name": "Youtube Capture",
   "short_name": "YtCapture",
   "description" : "Take snapshots and download thumbnails of Youtube videos",
-  "version": "1.1.0",
+  "version": "1.1.5",
   "manifest_version": 3,
   "action": {
     "default_popup": "popup.html",
@@ -13,9 +13,9 @@
     }
   },
   "icons": {
-      "32": "assets/logo/32.png",
-      "48": "assets/logo/48.png",
-      "128": "assets/logo/128.png"
+    "32": "assets/logo/32.png",
+    "48": "assets/logo/48.png",
+    "128": "assets/logo/128.png"
   },
   "background.service_worker": {
     "scripts": [
@@ -24,23 +24,26 @@
     "persistent": false
   },
   "content_scripts": [
-   {
-     "matches": [
-      "https://*.youtube.com/*"
-    ],
-     "run_at": "document_idle",
-     "js": [
+    {
+      "matches": [
+        "https://*.youtube.com/*"
+      ],
+      "run_at": "document_idle",
+      "js": [
         "assets/content/js/ytc-utils.js",
         "assets/content/js/ytc-snapshot.js",
         "assets/content/js/ytc-thumbnail.js"
       ],
      "css": [
         "assets/content/css/ytc-style.css"
-     ]
-   }
- ],
+      ]
+    }
+  ],
   "permissions": [
     "declarativeContent"
+  ],
+  "host_permissions": [
+    "https://*.youtube.com/*"
   ]
 }
 
