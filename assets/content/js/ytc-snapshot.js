@@ -37,7 +37,6 @@ window.addEventListener('load', () => {
 						// if (sibling) {
 							// create and insert a button for taking/capturing video snapshots
 							insertSnapshotButton(sibling.querySelector('#top-level-buttons'));
-							insertSnapshotCanvas();
 							snapshotPrevHref = href;
 						// }
 					}
@@ -46,6 +45,7 @@ window.addEventListener('load', () => {
 			// }
 		}
 	});
+	insertSnapshotCanvas();
 	// listen for changes/updates in the body element
   observer.observe(document.body, {
     childList: true,
@@ -100,18 +100,13 @@ function takeAndDownloadSnapshot() {
 
 function generateSnapshot() {
 	const video = player.querySelector('video');
-	const context = canvas.getContext('2d');
-	const {
+	let {
 		clientWidth: cw,
 		clientHeight: ch,
 		currentTime,
 		src
 	} = video;
-
-	canvas.width = cw;
-	canvas.height = ch;
-	context.drawImage(video, 0, 0, cw, ch);
-	const data = canvas.toDataURL();
+	const data = drawImageOnCanvas(video, cw, ch, 555)
 	const extension = data.split(',').shift().match(/(?<=\/).+(?=;)/g);
 	return {
 		data,
